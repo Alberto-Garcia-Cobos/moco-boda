@@ -1,0 +1,446 @@
+/* =========================================================
+   PANTALLAS DE EVENTOS
+   Víspera · Ceremonia · Banquete · RSVP
+   ========================================================= */
+
+.event-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+
+  display: grid;
+  place-items: center;
+
+  padding:
+    var(--page-padding-top)
+    var(--page-padding-x)
+    var(--page-padding-bottom);
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Marco decorativo común */
+
+.eve-screen::before,
+.ceremony-screen::before,
+.banquet-screen::before,
+.rsvp-screen::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+
+  border: 1px solid rgba(182, 141, 64, 0.28);
+  border-radius: 34px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   FONDOS
+   ========================================================= */
+
+.eve-screen {
+  background:
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(255, 255, 255, 0.56),
+      transparent 32%
+    ),
+    linear-gradient(
+      rgba(245, 241, 232, 0.72),
+      rgba(245, 241, 232, 0.90)
+    ),
+    url("../../images/backgrounds/fondo-vispera.png");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.ceremony-screen {
+  background:
+    radial-gradient(
+      circle at 80% 18%,
+      rgba(255, 255, 255, 0.56),
+      transparent 32%
+    ),
+    linear-gradient(
+      rgba(245, 241, 232, 0.72),
+      rgba(245, 241, 232, 0.90)
+    ),
+    url("../../images/backgrounds/fondo-boda.jpg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.banquet-screen {
+  background:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 255, 255, 0.54),
+      transparent 32%
+    ),
+    linear-gradient(
+      rgba(245, 241, 232, 0.70),
+      rgba(245, 241, 232, 0.90)
+    ),
+    url("../../images/backgrounds/fondo-banquete.jpg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.rsvp-screen {
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(255, 255, 255, 0.58),
+      transparent 34%
+    ),
+    linear-gradient(
+      rgba(245, 241, 232, 0.74),
+      rgba(245, 241, 232, 0.92)
+    ),
+    url("../../images/og-image.jpg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+
+/* =========================================================
+   TARJETA DEL EVENTO
+   ========================================================= */
+
+.event-card {
+  position: relative;
+  z-index: 2;
+
+  width: min(var(--content-compact), 100%);
+  padding: clamp(24px, 4vw, 32px);
+
+  text-align: center;
+
+  background: rgba(254, 252, 248, 0.56);
+  border: 1px solid rgba(182, 141, 64, 0.20);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.event-title {
+  margin-bottom: var(--space-sm);
+
+  font-family: var(--font-title);
+  font-size: var(--title-lg);
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.event-date {
+  margin-bottom: var(--space-md);
+
+  color: var(--color-gold);
+
+  font-size: var(--text-sm);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.event-text {
+  margin-bottom: var(--space-md);
+
+  font-family: var(--font-title);
+  font-size: var(--text-lg);
+  line-height: 1.32;
+}
+
+.event-place {
+  margin-bottom: var(--space-md);
+
+  color: var(--color-muted);
+  font-size: var(--text-md);
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 11px 20px;
+
+  border-radius: var(--radius-pill);
+
+  font-size: 0.85rem;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.primary-button {
+  color: white;
+  background: var(--color-gold);
+}
+
+.secondary-button {
+  color: var(--color-text);
+
+  background: rgba(254, 252, 248, 0.70);
+  border: 1px solid rgba(182, 141, 64, 0.65);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ENLACE DE CALENDARIO
+   ========================================================= */
+
+.calendar-link {
+  display: inline-block;
+
+  margin-top: 18px;
+  padding: 6px 4px;
+
+  color: var(--color-gold);
+
+  font-size: 0.86rem;
+  letter-spacing: 0.2px;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.calendar-link:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   FLECHA ATRÁS
+   ========================================================= */
+
+.back-arrow {
+  position: fixed;
+  top: 50%;
+  left: 22px;
+  z-index: 20;
+
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--color-text);
+  background: rgba(254, 252, 248, 0.34);
+
+  border: 1px solid rgba(182, 141, 64, 0.22);
+  border-radius: var(--radius-pill);
+
+  font-size: 1.3rem;
+  opacity: 0.34;
+
+  transform: translateY(-50%);
+
+  transition:
+    opacity 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.back-arrow:hover,
+.back-arrow:focus-visible {
+  opacity: 1;
+  background: rgba(254, 252, 248, 0.82);
+}
+
+
+/* =========================================================
+   BOTÓN RSVP DE LA BARRA
+   ========================================================= */
+
+.bar-rsvp {
+  padding: 9px 16px;
+
+  color: white;
+  background: var(--color-gold);
+
+  border-radius: var(--radius-pill);
+
+  font-size: 0.76rem;
+  white-space: nowrap;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.bar-rsvp:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MÓVIL
+   Incluye espacio para la barra y la zona segura del iPhone.
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .event-screen {
+    align-items: center;
+
+    padding:
+      calc(20px + env(safe-area-inset-top))
+      16px
+      calc(220px + env(safe-area-inset-bottom));
+  }
+
+  .event-card {
+    padding: 22px 18px;
+    margin-bottom: 8px;
+  }
+
+  .event-title {
+    font-size: clamp(2.7rem, 13vw, 4rem);
+  }
+
+  .event-text {
+    font-size: clamp(1.05rem, 5vw, 1.25rem);
+    line-height: 1.28;
+  }
+
+  .event-date {
+    margin-bottom: 16px;
+  }
+
+  .event-text,
+  .event-place {
+    margin-bottom: 18px;
+  }
+
+  .event-actions {
+    gap: 9px;
+  }
+
+  .event-actions a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .calendar-link {
+    display: block;
+
+    margin-top: 14px;
+    margin-bottom: 8px;
+    padding: 9px 4px;
+
+    line-height: 1.35;
+  }
+
+  .back-arrow {
+    top: calc(18px + env(safe-area-inset-top));
+    left: 16px;
+
+    transform: none;
+  }
+
+  .bottom-bar-with-rsvp {
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    min-height: 118px;
+  }
+}
+
+
+/* =========================================================
+   MÓVILES CON POCA ALTURA
+   Evita que la tarjeta choque con la barra inferior.
+   ========================================================= */
+
+@media (max-width: 760px) and (max-height: 760px) {
+  .event-screen {
+    place-items: start center;
+
+    padding-top: calc(64px + env(safe-area-inset-top));
+    padding-bottom: calc(210px + env(safe-area-inset-bottom));
+  }
+
+  .event-card {
+    padding: 18px 16px;
+  }
+
+  .event-title {
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+    margin-bottom: 10px;
+  }
+
+  .event-date {
+    margin-bottom: 12px;
+  }
+
+  .event-text {
+    margin-bottom: 14px;
+    font-size: 1.05rem;
+  }
+
+  .event-place {
+    margin-bottom: 14px;
+    font-size: 0.88rem;
+  }
+
+  .primary-button,
+  .secondary-button {
+    padding: 10px 16px;
+  }
+
+  .calendar-link {
+    margin-top: 10px;
+    margin-bottom: 4px;
+    padding: 6px 2px;
+    font-size: 0.8rem;
+  }
+}
+
+
+/* =========================================================
+   PORTÁTILES CON POCA ALTURA
+   No afecta a móviles.
+   ========================================================= */
+
+@media (min-width: 761px) and (max-height: 760px) {
+  .event-screen {
+    padding-top: 20px;
+    padding-bottom: 145px;
+  }
+
+  .event-card {
+    padding: 22px 24px;
+  }
+
+  .event-title {
+    font-size: clamp(2.7rem, 5vw, 4.3rem);
+  }
+
+  .event-text {
+    font-size: 1.15rem;
+  }
+}

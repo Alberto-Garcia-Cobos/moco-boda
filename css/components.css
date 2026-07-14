@@ -1,0 +1,707 @@
+/* =========================================================
+   PORTADA / INTRO
+   ========================================================= */
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: .78rem;
+  color: var(--color-muted);
+  margin-bottom: 20px;
+}
+
+.couple-title {
+  font-family: var(--font-title);
+  font-size: clamp(3.8rem, 9vw, 7rem);
+  font-weight: 500;
+  line-height: .82;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.couple-title span {
+  display: block;
+  color: var(--color-gold);
+  font-size: .48em;
+  line-height: 1.1;
+  animation: heartBeat 4s ease-in-out infinite;
+}
+
+.intro-phrase {
+  font-family: var(--font-title);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.35;
+  text-align: center;
+}
+
+.intro-phrase p + p {
+  margin-top: 6px;
+}
+
+.reveal-line {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: revealLine .75s ease forwards;
+}
+
+.reveal-line:nth-child(1) {
+  animation-delay: .35s;
+}
+
+.reveal-line:nth-child(2) {
+  animation-delay: .85s;
+}
+
+.reveal-line:nth-child(3) {
+  animation-delay: 1.35s;
+}
+
+@keyframes revealLine {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 88%, 100% {
+    transform: scale(1);
+  }
+
+  92% {
+    transform: scale(1.13);
+  }
+
+  96% {
+    transform: scale(1);
+  }
+}
+
+
+/* =========================================================
+   BOARDING PASS (botón de inicio del viaje)
+   ========================================================= */
+
+.boarding-pass {
+  position: fixed;
+  left: 50%;
+  bottom: 125px;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  width: min(310px, calc(100% - 48px));
+  padding: 15px 26px;
+  background: rgba(254, 252, 248, .94);
+  border: 1px solid rgba(182, 141, 64, .55);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  opacity: 0;
+  animation: boardingIn .9s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: 1.9s;
+
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.boarding-pass span {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: .62rem;
+  color: var(--color-muted);
+}
+
+.boarding-pass strong {
+  font-size: .92rem;
+  font-weight: 500;
+}
+
+.boarding-pass:hover {
+  transform: translateX(-50%) translateY(-4px) rotate(-1deg);
+}
+
+.boarding-pass.is-clicked {
+  animation: boardingStamp .45s ease forwards;
+}
+
+@keyframes boardingIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(28px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes boardingStamp {
+  0% {
+    transform: translateX(-50%) scale(1);
+    filter: brightness(1);
+  }
+
+  45% {
+    transform: translateX(-50%) scale(.96) rotate(-1deg);
+    filter: brightness(.92);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(.94) rotate(1deg);
+    opacity: .45;
+  }
+}
+
+@media (max-width: 760px) {
+  .boarding-pass {
+    bottom: 145px;
+  }
+}
+
+
+/* =========================================================
+   BARRA INFERIOR (nombres, cuenta atrás, línea del viaje)
+   ========================================================= */
+
+.bottom-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 9;
+
+  width: min(760px, calc(100% - 32px));
+  min-height: 86px;
+  padding: 10px 20px;
+
+  background: rgba(254, 252, 248, .92);
+  border: 1px solid rgba(182, 141, 64, .25);
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(14px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.bar-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.bar-names {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  white-space: nowrap;
+}
+
+.bar-names span,
+.bar-countdown strong {
+  color: var(--color-gold);
+}
+
+.bar-countdown {
+  font-size: .84rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .bottom-bar {
+    width: calc(100% - 24px);
+    min-height: 112px;
+    padding: 10px 14px;
+    border-radius: 24px;
+    text-align: center;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .bar-top {
+    flex-direction: column;
+    gap: 3px;
+  }
+}
+
+
+/* =========================================================
+   LÍNEA DEL VIAJE (journey-line, en la barra inferior)
+   ========================================================= */
+
+.journey-line {
+  width: 100%;
+  max-width: 360px;
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr auto;
+  align-items: center;
+  gap: 6px;
+  font-size: .85rem;
+  margin: 6px auto 2px;
+}
+
+.journey-line span {
+  position: relative;
+  z-index: 2;
+}
+
+.journey-segment {
+  height: 1px;
+  border-top: 1px dashed rgba(182, 141, 64, .65);
+  position: relative;
+}
+
+.journey-plane {
+  position: absolute;
+  top: -13px;
+  color: var(--color-gold);
+  font-size: .9rem;
+  transform: rotate(12deg);
+}
+
+.journey-line[data-step="home"] .journey-plane {
+  left: 30%;
+}
+
+.journey-line[data-step="vispera"],
+.journey-line[data-step="ceremonia"],
+.journey-line[data-step="banquete"],
+.journey-line[data-step="rsvp"] {
+  grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr auto;
+}
+
+.journey-line[data-step="vispera"] .journey-plane {
+  left: 18%;
+}
+
+.journey-line[data-step="ceremonia"] .journey-plane {
+  left: 45%;
+}
+
+.journey-line[data-step="banquete"] .journey-plane {
+  left: 72%;
+}
+
+.journey-line[data-step="rsvp"] .journey-plane {
+  left: 88%;
+}
+
+@media (max-width: 760px) {
+  .journey-line {
+    max-width: 290px;
+    font-size: .76rem;
+  }
+}
+
+
+/* =========================================================
+   TRANSICIÓN DE INICIO (avión + polaroids del recuerdo)
+   ========================================================= */
+
+.journey-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, .65), transparent 34%),
+    linear-gradient(rgba(245, 241, 232, .94), rgba(245, 241, 232, .97));
+
+  display: grid;
+  place-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+
+.journey-transition.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Manchas de luz dorada flotantes (profundidad premium) */
+.journey-transition::before,
+.journey-transition::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  animation: floatGlow 8s ease-in-out infinite alternate;
+}
+
+.journey-transition::before {
+  width: 340px;
+  height: 220px;
+  background: rgba(182, 141, 64, .09);
+  top: 10%;
+  left: 5%;
+}
+
+.journey-transition::after {
+  width: 280px;
+  height: 180px;
+  background: rgba(182, 141, 64, .07);
+  bottom: 12%;
+  right: 6%;
+  animation-delay: -4s;
+}
+
+@keyframes floatGlow {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(20px, -15px) scale(1.08); }
+}
+
+.cinematic-map {
+  width: min(920px, calc(100% - 32px));
+  text-align: center;
+  position: relative;
+}
+
+.transition-kicker {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: .78rem;
+  color: var(--color-muted);
+  margin-bottom: 48px;
+}
+
+/* ── Ruta SVG ───────────────────────────────────────── */
+.cinematic-route {
+  width: min(720px, 100%);
+  height: 120px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.route-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#routePathTrail {
+  transition: stroke-dashoffset 2.2s cubic-bezier(.45, 0, .2, 1);
+}
+
+/* ── Paradas (apagadas → iluminadas con .is-active) ─── */
+.map-stop {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  z-index: 2;
+  filter: grayscale(1) opacity(.32);
+  transition: filter .6s ease, transform .6s ease;
+}
+
+.map-stop.is-active {
+  filter: grayscale(0) opacity(1);
+  transform: translateX(-50%) scale(1.2);
+}
+
+.map-stop small {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-text);
+  font-size: .72rem;
+  letter-spacing: 1px;
+  color: var(--color-muted);
+}
+
+/* Posición alineada con los puntos inicio/medio/fin de la curva SVG */
+.stop-fuenlabrada { left: 8%;  top: 54px; }
+.stop-irlanda     { left: 50%; top: 18px; }
+.stop-madridejos  { left: 92%; top: 4px;  }
+
+/* ── Avión con offset-path (vuelo curvo) ────────────── */
+.flying-plane {
+  position: absolute;
+  color: var(--color-gold);
+  font-size: 2.1rem;
+  z-index: 5;
+
+  /* Fallback para Safari < 15.4: avión en posición inicial estático */
+  left: 8%;
+  top: 52%;
+  transform: translate(-50%, -50%) rotate(14deg);
+
+  /* Sistema moderno: sigue la curva SVG y se inclina solo */
+  offset-path: path("M 58,90 Q 180,10 360,60 Q 540,110 662,30");
+  offset-distance: 0%;
+  offset-rotate: auto;
+  transition:
+    offset-distance 2.2s cubic-bezier(.45, 0, .2, 1),
+    left 2.2s cubic-bezier(.45, 0, .2, 1);
+}
+
+@supports (offset-path: path("M 0 0 L 1 1")) {
+  .flying-plane {
+    left: 0;
+    top: 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .transition-kicker {
+    margin-bottom: 32px;
+  }
+
+  .cinematic-route {
+    height: 105px;
+  }
+
+  .map-stop {
+    font-size: 1.45rem;
+  }
+
+  .map-stop small {
+    font-size: .62rem;
+  }
+
+  .flying-plane {
+    font-size: 1.7rem;
+  }
+}
+
+
+/* =========================================================
+   POLAROID DEL RECUERDO
+   ========================================================= */
+
+.story-polaroid {
+  width: min(250px, 62vw);
+  margin: 26px auto 0;
+  padding: 9px 9px 30px;
+
+  background: var(--color-paper);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+
+  opacity: 0;
+  transform: translateY(24px) rotate(var(--story-rotate, -5deg)) scale(.94);
+}
+
+.story-polaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+
+  border-radius: 8px;
+  background: #e8dfcf;
+}
+
+.story-polaroid figcaption {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.story-polaroid figcaption strong {
+  display: block;
+
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.story-polaroid figcaption span {
+  display: block;
+  margin-top: 3px;
+
+  color: var(--color-muted);
+  font-size: .76rem;
+  line-height: 1.35;
+}
+
+.story-polaroid.is-visible {
+  animation: storyIn .65s ease forwards;
+}
+
+.story-polaroid.is-leaving {
+  animation: storyOut .45s ease forwards;
+}
+
+@keyframes storyIn {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) rotate(var(--story-rotate, -5deg)) scale(.94);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-5px) rotate(var(--story-rotate, -5deg)) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--story-rotate, -5deg)) scale(1);
+  }
+}
+
+@keyframes storyOut {
+  to {
+    opacity: 0;
+    transform: translateY(-16px) rotate(var(--story-rotate, -5deg)) scale(.96);
+  }
+}
+
+@media (max-width: 760px) {
+  .story-polaroid {
+    width: min(205px, 58vw);
+    margin-top: 18px;
+    padding: 7px 7px 24px;
+  }
+}
+
+
+/* =========================================================
+   TRANSICIÓN ENTRE PARADAS (stop-transition)
+   ========================================================= */
+
+.stop-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, .55), transparent 34%),
+    linear-gradient(rgba(245, 241, 232, .93), rgba(245, 241, 232, .97));
+
+  display: grid;
+  place-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s ease;
+}
+
+.stop-transition.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.stop-transition-content {
+  text-align: center;
+  width: min(760px, calc(100% - 32px));
+}
+
+.stop-transition h2 {
+  font-family: var(--font-title);
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-weight: 500;
+}
+
+.mini-route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 28px 0;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 2.4vw, 1.4rem);
+}
+
+.mini-stop {
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition:
+    color .35s ease,
+    background-color .35s ease,
+    box-shadow .45s ease,
+    transform .35s ease,
+    opacity .35s ease;
+}
+
+.mini-stop.is-origin {
+  opacity: .72;
+}
+
+.mini-stop.is-arrived {
+  color: var(--color-text);
+  background: rgba(182, 141, 64, .18);
+  box-shadow: 0 0 0 1px rgba(182, 141, 64, .36), 0 0 24px rgba(182, 141, 64, .28);
+  transform: scale(1.03);
+  animation: miniStopArrive .75s ease;
+}
+
+@keyframes miniStopArrive {
+  0% {
+    box-shadow: 0 0 0 0 rgba(182, 141, 64, .42);
+    transform: scale(1);
+  }
+
+  55% {
+    box-shadow: 0 0 0 8px rgba(182, 141, 64, 0);
+    transform: scale(1.06);
+  }
+
+  100% {
+    transform: scale(1.03);
+  }
+}
+
+.mini-arc-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-arc {
+  width: clamp(60px, 12vw, 140px);
+  height: 40px;
+  overflow: visible;
+}
+
+.mini-plane {
+  position: absolute;
+  color: var(--color-gold);
+  font-size: 1.6rem;
+  /* fallback base */
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%) rotate(12deg);
+
+  /* vuelo curvo sobre el mini-arco */
+  offset-path: path("M 10,40 Q 100,5 190,40");
+  offset-distance: 0%;
+  offset-rotate: auto;
+  transition:
+    offset-distance 1.35s cubic-bezier(.35, 0, .25, 1),
+    left 1.35s cubic-bezier(.35, 0, .25, 1);
+}
+
+@supports (offset-path: path("M 0 0 L 1 1")) {
+  .mini-plane {
+    left: 0;
+    top: 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .mini-route {
+    gap: 10px;
+  }
+
+  .mini-arc {
+    width: clamp(54px, 14vw, 120px);
+  }
+
+  .mini-plane {
+    font-size: 1.45rem;
+  }
+}
